@@ -4,7 +4,7 @@ T=0
 randomNum=$((RANDOM%2))
 if [ $randomNum -eq $H ]
 then
-	echo "Head wins"
+	echo "Head won"
 else
-	echo "Tail wins"
+	echo "Tail won"
 fi
