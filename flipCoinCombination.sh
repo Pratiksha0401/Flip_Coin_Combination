@@ -64,3 +64,59 @@ doublet_percent[TH]="$((((countTH*100))/n))%"
 doublet_percent[TT]="$((((countTT*100))/n))%"
 echo "${!doublet_percent[@]}=${doublet_percent[@]}"
 
+declare -A triplet
+declare -A triplet_percent
+countHHH=0
+countHHT=0
+countHTH=0
+countHTT=0
+countTHH=0
+countTHT=0
+countTTH=0
+countTTT=0
+for (( i=1;i<=n;i++ ))
+do
+	combiT=$((RANDOM%2))$((RANDOM%2))$((RANDOM%2))
+	if [ $combiT -eq 111 ]
+	then
+		triplet[$i]="HHH"
+		((countHHH++))
+	elif [ $combiT -eq 110 ]
+	then
+		triplet[$i]="HHT"
+		((countHHT++))
+	elif [ $combiT -eq 101 ]
+   then
+      triplet[$i]="HTH"
+      ((countHTH++))
+	elif [ $combiT -eq 100 ]
+   then
+      triplet[$i]="HTT"
+      ((countHTT++))
+ 	elif [ $combiT -eq 011 ]
+   then
+      triplet[$i]="THH"
+      ((countTHH++))
+ 	elif [ $combiT -eq 010 ]
+   then
+      triplet[$i]="THT"
+      ((countTHT++))
+ 	elif [ $combiT -eq 001 ]
+   then
+      triplet[$i]="TTH"
+      ((countTTH++))
+	else
+      triplet[$i]="TTT"
+      ((countTTT++))
+	fi
+done
+echo "Triplet combinations occurs are ${triplet[@]}"
+triplet_percent[HHH]="$((((countHHH*100))/n))%"
+triplet_percent[HHT]="$((((countHHT*100))/n))%"
+triplet_percent[HTH]="$((((countHTH*100))/n))%"
+triplet_percent[HTT]="$((((countHTT*100))/n))%"
+triplet_percent[THH]="$((((countTHH*100))/n))%"
+triplet_percent[THT]="$((((countTHT*100))/n))%"
+triplet_percent[TTH]="$((((countTTH*100))/n))%"
+triplet_percent[TTT]="$((((countTTT*100))/n))%"
+echo "${!triplet_percent[@]}=${triplet_percent[@]}"
