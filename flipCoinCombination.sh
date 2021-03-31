@@ -1,10 +1,10 @@
-
+#!/bin/bash -x
 declare -A singlet
 H=1
 T=0
 countH=0
 countT=0
-read -p "Enter a number for which you wnat to flip coin:" n
+read -p "Enter a number for which you want to flip coin:" n
 for (( i=1;i<=n;i++ ))
 do
 	randomNum=$((RANDOM%2))
@@ -58,11 +58,37 @@ do
 	fi
 done
 echo "Doublet combinations occurs are ${doublet[@]}"
-doublet_percent[HH]="$((((countHH*100))/n))%"
-doublet_percent[HT]="$((((countHT*100))/n))%"
-doublet_percent[TH]="$((((countTH*100))/n))%"
-doublet_percent[TT]="$((((countTT*100))/n))%"
-echo "${!doublet_percent[@]}=${doublet_percent[@]}"
+
+d1="$((((countHH*100))/n))"
+doublet_percent[HH]="$d1"
+
+d2="$((((countHT*100))/n))"
+doublet_percent[HT]="$d2"
+
+d3="$((((countTH*100))/n))"
+doublet_percent[TH]="$d3"
+
+d4="$((((countTT*100))/n))"
+doublet_percent[TT]="$d4"
+
+echo "${!doublet_percent[@]}=${doublet_percent[@]} %" 
+declare -a array_D
+array_D=( [0]=$d1 [1]=$d2 [2]=$d3 [3]=$d4 )
+echo "${array_D[@]}"
+
+if [ $countHH -gt $countHT ] && [ $countHH -gt $countTH ] && [ $countHH -gt $countTT ]
+then
+	echo "Winning combination is HH $d1 %"
+elif [ $countHT -gt $countTH ] && [ $countHT -gt $countTT ]
+then
+	echo "winning combination is HT with $d2 %"
+elif [ $countTH -gt $countTT ]
+then
+	echo "winning combination is TH with $d3 %"
+else
+	echo "winning combination is TT with $d4 %"
+fi
+
 
 declare -A triplet
 declare -A triplet_percent
@@ -111,12 +137,46 @@ do
 	fi
 done
 echo "Triplet combinations occurs are ${triplet[@]}"
-triplet_percent[HHH]="$((((countHHH*100))/n))%"
-triplet_percent[HHT]="$((((countHHT*100))/n))%"
-triplet_percent[HTH]="$((((countHTH*100))/n))%"
-triplet_percent[HTT]="$((((countHTT*100))/n))%"
-triplet_percent[THH]="$((((countTHH*100))/n))%"
-triplet_percent[THT]="$((((countTHT*100))/n))%"
-triplet_percent[TTH]="$((((countTTH*100))/n))%"
-triplet_percent[TTT]="$((((countTTT*100))/n))%"
-echo "${!triplet_percent[@]}=${triplet_percent[@]}"
+t1="$((((countHHH*100))/n))"
+t2="$((((countHHT*100))/n))"
+t3="$((((countHTH*100))/n))"
+t4="$((((countHTT*100))/n))"
+t5="$((((countTHH*100))/n))"
+t6="$((((countTHT*100))/n))"
+t7="$((((countTTH*100))/n))"
+t8="$((((countTTT*100))/n))"
+
+triplet_percent[HHH]="$t1"
+triplet_percent[HHT]="$t2"
+triplet_percent[HTH]="$t3"
+triplet_percent[HTT]="$t4"
+triplet_percent[THH]="$t5"
+triplet_percent[THT]="$t6"
+triplet_percent[TTH]="$t7"
+triplet_percent[TTT]="$t8"
+echo "${!triplet_percent[@]}=${triplet_percent[@]}%"
+
+if [ $t1 -gt $t2 ] && [ $t1 -gt $t3 ] && [ $t1 -gt $t4 ] && [ $t1 -gt $t5 ] && [ $t1 -gt $t6 ] && [ $t1 -gt $t7 ] && [ $t1 -gt $t8 ]
+then
+	echo "Winning combination is HHH with $t1 %"
+elif [ $t2 -gt $t3 ] && [ $t2 -gt $t4 ] && [ $t2 -gt $t5 ] && [ $t2 -gt $t6 ] && [ $t2 -gt $t7 ] &&[ $t2 -gt $t8 ]
+then
+	echo "Winning combination is HHT with $t2 %"
+elif [ $t3 -gt $t4 ] && [ $t3 -gt $t5 ] && [ $t3 -gt $t6 ] && [ $t3 -gt $t7 ] && [ $t3 -gt $t8 ]
+then
+	echo "Winning combination is HTH with $t3 %"
+elif [ $t4 -gt $t5 ] && [ $t4 -gt $t6 ] &&[ $t4 -gt $t7 ] &&[ $t4 -gt $t8 ]
+then
+   echo "Winning combination is HTT with $t4 %"
+elif [ $t5 -gt $t6 ] && [ $t5 -gt $t7 ] && [ $t5 -gt $t8 ]
+then
+   echo "Winning combination is THH with $t5 %"
+elif [ $t6 -gt $t7 ] && [ $t6 -gt $t8 ]
+then
+   echo "Winning combination is THT with $t6 %"
+elif [ $t7 -gt $t8 ]
+then
+   echo "Winning combination is TTH with $t7 %"
+else
+	echo "winning combination is TTT with $t8 %"
+fi
